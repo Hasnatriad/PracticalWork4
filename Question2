@@ -1,0 +1,31 @@
+G=nx.read_edgelist('out.contiguous-usa.txt', create_using=nx.Graph())
+# initial graph node's attribute 'label' with its id
+for node, data in G.nodes(True):
+    data['label'] = node
+
+nx.draw(G)
+plt.savefig("Graph.png")
+plt.show()
+# print("The Graph is: ", graph)
+
+start = timeit.default_timer()
+# Label Propagation Algorithm
+LG = label_propagation(G)
+stop = timeit.default_timer()
+print('Time for Label Propagation: ', stop - start)  
+
+
+colour_map = []
+for node in LG.nodes():
+    colour_map.append(LG.node[node]['label'])
+
+
+nx.draw(LG, cmap=plt.get_cmap('jet'), node_color=colour_map)
+plt.savefig("LG Graph.png")
+plt.show()
+
+labels = nx.get_node_attributes(LG,'label')
+#print('labels',labels)
+common_labels = Counter(labels.values()).most_common()
+print('common labels',common_labels)
+print('# of comm",len(common_labels))
