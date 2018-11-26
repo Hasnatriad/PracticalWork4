@@ -1,0 +1,12 @@
+start = timeit.default_timer()
+# Girvan Newman
+GA = girvan_algorithm(G)
+stop = timeit.default_timer()
+print('Time for Girvan algo: ', stop - start)  
+
+#c = list(nx.connected_component_subgraphs(G))
+#print('Number of Connected Components are: ',len(c))
+for i, j in enumerate(GA):
+    nx.draw(j)
+    plt.savefig("GA Graph {}.png".format(i+1))
+    plt.show()
