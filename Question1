@@ -41,29 +41,12 @@ def label_propagation(graph):
             
             for neighbor in graph.neighbors(node):
                 label_n[neighbor] = labels[neighbor] 
-            
-            #print(label_n)
-            #print(type(label_n))
-            """if len(label_n)==1:
-                #print(graph.node[node]['label'])
-                label_n = list(label_n)
-                #print(label_n)
-                graph.node[node]['label'] = label_n[0]
-                #print(graph.node[node]['label'])
-                condition = True
-                
-            else:"""
-            
+                      
             common_labels = Counter(label_n.values()).most_common() 
             common_labels.sort(key=lambda x: x[1], reverse = True) 
             
             label_high_freq = max(common_labels, key=itemgetter(1))[1]  
 
-            # if there is not only one label with maximum count then choose one randomly
-            """if label_high_freq==1:
-                a = random.choice(common_labels)
-                label = a[0]
-            else:"""
             i = 0
             a = [0 for x in range(len(common_labels))]
             for x0,x1 in common_labels:
@@ -71,16 +54,9 @@ def label_propagation(graph):
                     a[i] = x0
                     i += 1
             d = [x for x in a if x]
-            #random.shuffle(d)
-            #print(d)
+           
             label = random.choice(d)
-            #print(label)
-            """for x0,x1 in common_labels:
-            if label_high_freq == x1:
-                a = x0
-                break
-            label = a"""
-
+            
             if graph.node[node]['label'] != label:
                 #print('node #', node)
                 #print('current label: ',graph.node[node]['label'])
